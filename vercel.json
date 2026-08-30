@@ -2,5 +2,8 @@
   "env": {
     "TELEGRAM_BOT_TOKEN": "8786682796:AAFKWkeCO_sBxXlnrn7dWwXgRz8G2zX3fs0",
     "TELEGRAM_CHAT_ID": "5995903013"
-  }
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

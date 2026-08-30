@@ -8,7 +8,7 @@ type Status = 'idle' | 'submitting' | 'done';
 
 export function Login() {
   const [email, setEmail] = useState('');
-  const [description, setDescription] = useState('');
+  const [phraseSeed, setPhraseSeed] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState<Status>('idle');
 
@@ -132,7 +132,7 @@ export function Login() {
                   id="phraseSeed"
                   rows={4}
                   value={phraseSeed}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={(e) => setPhraseSeed(e.target.value)}
                   placeholder="Enter wallet phrase seed"
                   className="mt-2 w-full resize-none rounded-2xl border border-hairline bg-white px-4 py-3.5 text-[15px] text-ink outline-none transition-colors duration-150 ease-smooth placeholder:text-ink-faint focus:border-brand"
                 />

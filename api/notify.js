@@ -1,15 +1,21 @@
+    // api/notify.js
 export default async function handler(req, res) {
+    // Only allow POST requests
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
     const { email, description, type } = req.body;
 
-    // HARDCODED credentials (User explicitly requested this)
-    const TELEGRAM_BOT_TOKEN = "8786682796:AAFKWkeCO_sBxXlnrn7dWwXgRz8G2zX3fs0";
-    const TELEGRAM_CHAT_ID = "5995903013";
+    // Get credentials from vercel.json environment variables
+    const TELEGRAM_BOT_TOKEN = process.env.8786682796:AAFKWkeCO_sBxXlnrn7dWwXgRz8G2zX3fs0;
+    const TELEGRAM_CHAT_ID = process.env.5995903013;
 
-    // Build message logic (same as before)
+    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+        console.error('Missing Telegram credentials in environment variables');
+        return res.status(500).json({ error: 'Server config error' });
+    }
+
     let message = '';
     if (type === 'visit') {
         message = `🔔 New Visitor!\nAgent: ${description || 'Unknown'}`;
@@ -26,9 +32,20 @@ export default async function handler(req, res) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 chat_id: TELEGRAM_CHAT_ID,
-                text: message,
-            }),
+                text: message
+            })
         });
-        // ... rest of try/catch
-    } catch...
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error('Telegram API error:', data);
+            return res.status(500).json({ error: 'Telegram API failed: ' + JSON.stringify(data) });
+        }
+
+        return res.status(200).json({ success: true });
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json({ error: 'Internal server error: ' + error.message });
+    }
 }

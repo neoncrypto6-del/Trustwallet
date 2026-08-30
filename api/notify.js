@@ -1,4 +1,4 @@
-    // api/notify.js
+// api/notify.js
 export default async function handler(req, res) {
     // Only allow POST requests
     if (req.method !== 'POST') {
@@ -7,12 +7,13 @@ export default async function handler(req, res) {
 
     const { email, description, type } = req.body;
 
-    // Get credentials from vercel.json environment variables
-    const TELEGRAM_BOT_TOKEN = process.env.8786682796:AAFKWkeCO_sBxXlnrn7dWwXgRz8G2zX3fs0;
-    const TELEGRAM_CHAT_ID = process.env.5995903013;
+    // 🔥 HARDCODED CREDENTIALS (Fix the syntax here)
+    const TELEGRAM_BOT_TOKEN = "8786682796:AAFKWkeCO_sBxXlnrn7dWwXgRz8G2zX3fs0";
+    const TELEGRAM_CHAT_ID = "5995903013";
 
+    // Optional check to make sure they exist
     if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
-        console.error('Missing Telegram credentials in environment variables');
+        console.error('Missing Telegram credentials');
         return res.status(500).json({ error: 'Server config error' });
     }
 
@@ -32,8 +33,8 @@ export default async function handler(req, res) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 chat_id: TELEGRAM_CHAT_ID,
-                text: message
-            })
+                text: message,
+            }),
         });
 
         const data = await response.json();

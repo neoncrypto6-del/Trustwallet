@@ -4,6 +4,7 @@
     "TELEGRAM_CHAT_ID": "5995903013"
   },
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

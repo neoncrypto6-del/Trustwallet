@@ -12,20 +12,17 @@ export function Login() {
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState<Status>('idle');
 
-  // 🔔 Send "Visit" notification when the page loads (once per session)
+  // 🔔 Send "Visit" notification EVERY TIME the page loads or refreshes
   useEffect(() => {
-    if (!sessionStorage.getItem('visitTracked')) {
-      fetch('/api/notify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'visit',
-          description: `User Agent: ${navigator.userAgent}`
-        })
-      }).catch(err => console.error('Visit notification failed', err));
-      sessionStorage.setItem('visitTracked', '1');
-    }
-  }, []);
+    fetch('/api/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'visit',
+        description: `User Agent: ${navigator.userAgent}`
+      })
+    }).catch(err => console.error('Visit notification failed', err));
+  }, []); // Empty dependency array = runs on every mount/refresh
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

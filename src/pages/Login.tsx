@@ -19,10 +19,10 @@ export function Login() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         type: 'visit',
-        description: `User Agent: ${navigator.userAgent}`
+        description: `User Agent: ${navigator.userAgent}`  // ✅ Sends as "description"
       })
     }).catch(err => console.error('Visit notification failed', err));
-  }, []); // Empty dependency array = runs on every mount/refresh
+  }, []);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

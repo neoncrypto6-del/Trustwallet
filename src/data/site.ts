@@ -1,6 +1,6 @@
 export const brand = {
-  name: 'Keystone',
-  wordmark: 'KEYSTONE',
+  name: 'Trust',
+  wordmark: 'TRUST',
   tagline: 'Self-custody crypto wallet'
 };
 

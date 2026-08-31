@@ -12,11 +12,12 @@ export function Logo({ tone = 'dark' }: LogoProps) {
       className="flex items-center gap-2.5 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-4"
       aria-label={`${brand.name} home`}
     >
-      {/* ✅ Replaced SVG with PNG image from public folder */}
+      {/* ✅ Replaced SVG with favicon.png from public folder */}
       <img
-        src="/logo.png"
+        src="/favicon.png"
         alt={`${brand.name} logo`}
-        className="h-8 w-auto" // Preserves aspect ratio, adjust height as needed
+        className="h-8 w-8 object-contain"
+        aria-hidden="true"
       />
 
       <span
